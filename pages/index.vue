@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div
       v-for="entry in entries"
       v-bind:key="entry.key"
@@ -50,6 +50,11 @@ h2 {
   text-align: center;
   padding: 20px;
   background-color: rgba(127, 127, 127, 0.1);
+}
+
+.wrapper {
+  max-width: 500px;
+  margin: auto;
 }
 
 .card {

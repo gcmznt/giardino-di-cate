@@ -50,7 +50,8 @@ const getData = async () => {
           .map(e =>
             e
               .replace(/ no$/g, " ❌")
-              .replace(/ tutto$/g, " ✅")
+              .replace(/ quasi tutto$/g, " 👍")
+              .replace(/ tutto$/g, " 🤤")
               .replace(/ si$/g, " ✅")
           )
           .filter(val => val)
