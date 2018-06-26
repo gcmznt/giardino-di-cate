@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <img class="logo" src="/swing.png" />
     <div
       v-for="entry in entries"
       v-bind:key="entry.key"
@@ -42,7 +43,7 @@ export default {
 
 <style>
 body {
-  background-color: #9b59b6;
+  background-color: #ff7979;
 }
 
 h2 {
@@ -50,6 +51,12 @@ h2 {
   text-align: center;
   padding: 20px;
   background-color: rgba(127, 127, 127, 0.1);
+}
+
+.logo {
+  max-width: 200px;
+  margin: 30px auto;
+  display: block;
 }
 
 .wrapper {
