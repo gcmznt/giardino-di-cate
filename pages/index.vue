@@ -2,16 +2,16 @@
   <div class="wrapper">
     <img class="logo" src="/swing-ori.svg" alt="Swing" />
     <div
-      v-for="entry in entries"
-      v-bind:key="entry.key"
-      v-bind:entry="entry"
+      v-for="day in days"
+      v-bind:key="day.key"
+      v-bind:day="day"
       class="card"
     >
-      <h2>{{entry.date}}</h2>
+      <h2>{{day.date}}</h2>
       <div
-        v-for="el in entry.entries"
+        v-for="el in day.entries"
         v-bind:key="el.title"
-        class="entry"
+        class="day"
       >
         <h3>{{el.title}}</h3>
         <div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import entries from "../static/data.json";
+import days from "../static/data.json";
 // import Event from "../components/Event.vue";
 
 if (process.browser) {
@@ -41,7 +41,32 @@ export default {
   },
   data() {
     return {
-      entries
+      days: days.map(d => ({
+        ...d,
+        entries: d.entries.filter(e => e.title !== "Ha Mangiato?").map(e => ({
+          title: e.title.replace("Ha Scaricato?", "🚽")
+            .replace("Ha Dormito?", "😴")
+            .replace("Ha Mangiato?", "🍽")
+            .replace("Ha Fatto Merenda?", "🍭")
+            .replace("Annotazioni Varie:", "📝")
+            .replace("Attività Svolte?", "🎭")
+            .replace("Patelli?", "💩")
+            .replace("Menu del Giorno:", "🍱"),
+          text: e.text
+            .replace(/^si[\.\s]+/g, "")
+            .replace(/^no/g, "❌")
+            .trim()
+            .split("\n")
+            .map(e =>
+              e
+                .replace(/ no$/g, " ❌")
+                .replace(/ quasi tutto$/g, " 👍")
+                .replace(/ tutto$/g, " 🤤")
+                .replace(/ si$/g, " ✅")
+            )
+            .filter(val => val)
+        }))
+      }))
     };
   }
 };
@@ -78,7 +103,7 @@ h2 {
   opacity: 0.9;
 }
 
-.entry {
+.day {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: auto 1fr;
@@ -87,7 +112,7 @@ h2 {
   line-height: 1.4;
 }
 
-.entry div::first-letter {
+.day div::first-letter {
   text-transform: capitalize;
 }
 

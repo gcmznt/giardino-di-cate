@@ -1,5 +1,14 @@
 const fs = require("fs");
 const puppeteer = require("puppeteer");
+const admin = require("firebase-admin");
+const serviceAccount = JSON.parse(process.env.CONFIG);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://cate-162113.firebaseapp.com"
+});
+
+var db = admin.firestore();
 
 const url = "http://www.ilgiardinodeibimbi.it/index.asp";
 
@@ -31,34 +40,13 @@ const getData = async () => {
     date: a.date,
     entries: a.title
       .map((e, i) => ({
-        title: e
-          .replace("Ha Scaricato?", "🚽")
-          .replace("Ha Dormito?", "😴")
-          .replace("Ha Fatto Merenda?", "🍭")
-          .replace("Annotazioni Varie:", "📝")
-          .replace("Attività Svolte?", "🎭")
-          .replace("Patelli?", "💩")
-          .replace("Menu del Giorno:", "🍱"),
+        title: e,
         text: a.text[i]
           .toLowerCase()
           .replace(/\s*\n\s*/g, "\n")
           .replace(/\s{2,}/g, " ")
-          .replace(/^si/g, "")
-          .replace(/^no/g, "❌")
-          // .replace(/\s+/g, " ")
-          .trim()
-          .split("\n")
-          .map(e =>
-            e
-              .replace(/ no$/g, " ❌")
-              .replace(/ quasi tutto$/g, " 👍")
-              .replace(/ tutto$/g, " 🤤")
-              .replace(/ si$/g, " ✅")
-          )
-          .filter(val => val)
       }))
       .filter(e => e.text.length)
-      .filter(e => e.title !== "Ha Mangiato?")
   }));
   await browser.close();
   return act;
@@ -72,5 +60,17 @@ getData()
       }
       console.log("The file was saved!");
     });
+
+    data.forEach(day => {
+      db.collection("diary")
+        .doc(
+          day.date
+            .split("/")
+            .reverse()
+            .join("-")
+        )
+        .set(day);
+    });
+    console.log("Data saved to Firestore!");
   })
   .catch();
