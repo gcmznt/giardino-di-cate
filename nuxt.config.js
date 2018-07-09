@@ -4,6 +4,9 @@ module.exports = {
   */
   head: {
     title: "giardino-di-cate",
+    htmlAttrs: {
+      lang: "it-it"
+    },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },

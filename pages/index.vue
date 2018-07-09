@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img class="logo" src="/swing.png" />
+    <img class="logo" src="/swing-ori.svg" alt="Swing" />
     <div
       v-for="entry in entries"
       v-bind:key="entry.key"
@@ -25,6 +25,12 @@
 <script>
 import entries from "../static/data.json";
 // import Event from "../components/Event.vue";
+
+if (process.browser) {
+  if ('serviceWorker' in window.navigator) {
+    window.navigator.serviceWorker.register('/sw.js')
+  }
+}
 
 export default {
   head: {

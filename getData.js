@@ -32,12 +32,13 @@ const getData = async () => {
     entries: a.title
       .map((e, i) => ({
         title: e
-          .replace("Ha Scaricato?", "💩")
+          .replace("Ha Scaricato?", "🚽")
           .replace("Ha Dormito?", "😴")
-          .replace("Ha Fatto Merenda?", "🍦")
+          .replace("Ha Fatto Merenda?", "🍭")
           .replace("Annotazioni Varie:", "📝")
-          .replace("Attività Svolte?", "🤾‍")
-          .replace("Menu del Giorno:", "🍲"),
+          .replace("Attività Svolte?", "🎭")
+          .replace("Patelli?", "💩")
+          .replace("Menu del Giorno:", "🍱"),
         text: a.text[i]
           .toLowerCase()
           .replace(/\s*\n\s*/g, "\n")
