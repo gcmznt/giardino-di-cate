@@ -51,6 +51,7 @@ export default {
             .replace("Annotazioni Varie:", "📝")
             .replace("Attività Svolte?", "🎭")
             .replace("Patelli?", "💩")
+            .replace("Ha avuto la Febbre?", "🌡")
             .replace("Menu del Giorno:", "🍱"),
           text: e.text
             .replace(/^si[\.\s]+/g, "")
