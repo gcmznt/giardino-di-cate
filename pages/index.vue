@@ -52,6 +52,8 @@ export default {
             .replace("Attività Svolte?", "🎭")
             .replace("Patelli?", "💩")
             .replace("Ha avuto la Febbre?", "🌡")
+            .replace("Ha avuto il Raffreddore?", "🤧")
+            .replace("Ha avuto la Tosse?", "😷")
             .replace("Menu del Giorno:", "🍱"),
           text: e.text
             .replace(/^si[\.\s]+/g, "")
