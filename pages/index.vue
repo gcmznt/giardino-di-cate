@@ -63,6 +63,7 @@ export default {
             .map(e =>
               e
                 .replace(/ no$/g, " ❌")
+                .replace(/ poco$/g, " 👎")
                 .replace(/ metà$/g, " ½")
                 .replace(/ meta$/g, " ½")
                 .replace(/ quasi tutto$/g, " 👍")
